@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "semantic-timeline.schema.json",
+  "type": "object",
+  "required": ["schemaVersion", "source", "events"],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "1.0.0" },
+    "source": { "type": "string" },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "time", "trigger", "change", "purpose", "confidence"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9_-]{1,63}$" },
+          "time": {
+            "type": "object",
+            "required": ["sourceRange"],
+            "properties": {
+              "sourceRange": { "type": "string" },
+              "startSec": { "type": "number", "minimum": 0 },
+              "endSec": { "type": "number", "minimum": 0 },
+              "pointSec": { "type": "number", "minimum": 0 }
+            },
+            "additionalProperties": false
+          },
+          "trigger": {
+            "type": "object",
+            "required": ["type", "status"],
+            "properties": {
+              "type": { "type": "string", "enum": ["word", "phrase", "cue", "action", "pause", "clock", "unknown"] },
+              "text": { "type": "string" },
+              "speaker": { "type": "string" },
+              "status": { "type": "string", "enum": ["observed", "measured", "interpreted", "unknown", "unverified"] }
+            },
+            "additionalProperties": false
+          },
+          "change": { "type": "string" },
+          "purpose": { "type": "string" },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+          "evidence": { "type": "array", "items": { "type": "string" } },
+          "audioRelation": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

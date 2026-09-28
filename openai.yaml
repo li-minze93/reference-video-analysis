@@ -1,0 +1,4 @@
+interface:
+  display_name: "参考视频分析"
+  short_description: "将参考视频拆成可追溯的结构、语义、动效与声音分析包"
+  default_prompt: "使用 $reference-video-analysis 分析这条参考视频，生成可交给 video-refcraft 的本地分析包。"
